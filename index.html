@@ -1,0 +1,884 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#073b2e">
+<title>المصحف الإلكتروني</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+:root{
+--green:#073b2e;
+--green2:#0d5944;
+--gold:#d7b56d;
+--cream:#f7f4eb;
+--ink:#18352c;
+--muted:#718078;
+--card:#fffdf7
+}
+body{
+margin:0;
+background:var(--cream);
+color:var(--ink);
+font-family:"Cairo",sans-serif;
+line-height:1.8
+}
+.topbar{
+min-height:76px;
+padding:12px 5%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+background:#052d24;
+color:white;
+position:sticky;
+top:0;
+z-index:5
+}
+.brand{
+display:flex;
+align-items:center;
+gap:10px;
+color:inherit;
+text-decoration:none;
+font-weight:800;
+font-size:18px
+}
+.brand small{
+display:block;
+font-size:10px;
+color:#d9c89e;
+font-weight:400
+}
+.brand-icon{
+color:var(--gold);
+font-size:34px
+}
+nav{
+display:flex;
+gap:24px
+}
+nav a{
+color:#f8f3e7;
+text-decoration:none;
+font-size:14px
+}
+nav a:hover{color:var(--gold)}
+button,a{font-family:inherit}
+button{cursor:pointer}
+.ghost{
+border:1px solid #9b8555;
+color:#f4d991;
+background:transparent;
+border-radius:50%;
+width:42px;
+height:42px;
+font-size:20px
+}
+.hero{
+min-height:430px;
+background:radial-gradient(ellipse at 78% 25%,#1a7055 0,#0a4938 35%,#052e25 75%);
+color:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:55px 8%;
+overflow:hidden;
+position:relative
+}
+.hero-content{max-width:590px;z-index:1}
+.eyebrow{
+color:#b08c45;
+font-weight:700;
+font-size:13px
+}
+.hero h1{
+font-size:clamp(38px,5vw,62px);
+line-height:1.3;
+margin:12px 0
+}
+.hero h1 em{
+font-style:normal;
+color:#e6c77f
+}
+.hero p{color:#e1e9e2}
+.primary{
+display:inline-flex;
+gap:18px;
+align-items:center;
+margin-top:16px;
+padding:11px 24px;
+border-radius:30px;
+background:var(--gold);
+color:#15372b;
+text-decoration:none;
+font-weight:800
+}
+.hero-art{
+width:330px;
+height:280px;
+position:relative;
+display:grid;
+place-items:center
+}
+.arch{
+position:absolute;
+width:250px;
+height:260px;
+border:2px solid #c5a45e;
+border-radius:140px 140px 12px 12px
+}
+.book{
+z-index:1;
+width:170px;
+height:120px;
+background:linear-gradient(135deg,#174c38,#05281f);
+border:5px double #d9b968;
+text-align:center;
+padding:22px 8px;
+color:#f0d58f;
+font-family:"Amiri";
+font-size:30px
+}
+.book span{font-size:15px}
+.moon{
+position:absolute;
+top:8px;
+right:25px;
+font-size:58px;
+color:#e9cf91
+}
+.section{
+padding:66px 7%;
+max-width:1400px;
+margin:auto
+}
+.section-heading{
+display:flex;
+align-items:end;
+justify-content:space-between;
+gap:20px;
+margin-bottom:24px
+}
+.section h2{
+font-size:32px;
+margin:0;
+color:var(--green)
+}
+.section-heading p{
+max-width:520px;
+color:var(--muted)
+}
+.searchbar{
+display:flex;
+background:white;
+border:1px solid #e3dccb;
+border-radius:14px;
+padding:7px
+}
+.searchbar input{
+flex:1;
+min-width:0;
+border:0;
+outline:0;
+padding:12px 16px;
+font:inherit
+}
+.searchbar button,.secondary{
+border:0;
+border-radius:10px;
+background:var(--green2);
+color:white;
+padding:10px 20px;
+font-weight:700
+}
+.status{
+color:var(--muted);
+font-size:13px;
+margin:12px 4px
+}
+.results{display:grid;gap:12px}
+.result,.ayah{
+background:var(--card);
+border:1px solid #e9e1cf;
+border-radius:13px;
+padding:18px
+}
+.result .arabic,.ayah-text{
+font-family:"Amiri",serif;
+font-size:25px;
+line-height:2.1;
+color:#163f30
+}
+.reader-tools{
+display:flex;
+gap:14px;
+flex-wrap:wrap
+}
+.reader-tools label,.player-controls label{
+display:grid;
+gap:5px;
+font-size:13px;
+font-weight:700;
+min-width:180px
+}
+select{
+font:inherit;
+border:1px solid #ded5c2;
+background:white;
+border-radius:9px;
+padding:9px;
+color:var(--ink)
+}
+.ayah-list{
+display:grid;
+gap:12px;
+margin-top:18px
+}
+.ayah{
+display:flex;
+gap:14px;
+align-items:flex-start
+}
+.ayah-num{
+flex:0 0 38px;
+height:38px;
+border-radius:50%;
+display:grid;
+place-items:center;
+background:#e9dfc5;
+color:#765d2e;
+font-weight:700
+}
+.ayah-text{flex:1}
+.source-note{
+font-size:12px;
+color:#7b6c4c
+}
+.player-card{
+background:linear-gradient(120deg,#073b2e,#0d5944);
+border-radius:18px;
+padding:24px;
+color:white;
+display:flex;
+gap:22px;
+align-items:flex-start
+}
+.player-mark{
+width:76px;
+height:76px;
+border-radius:20px;
+background:#ffffff16;
+border:1px solid #d7b56d88;
+display:grid;
+place-items:center;
+color:#e7ca85;
+font-size:38px
+}
+.player-controls{
+flex:1;
+display:grid;
+gap:14px
+}
+.player-controls label{color:#f3e8cb}
+.audio-placeholder{
+color:#e8dfca;
+font-size:13px
+}
+audio{width:100%}
+.player-extra{
+display:flex;
+gap:12px;
+align-items:center;
+flex-wrap:wrap
+}
+.player-extra label{
+display:flex;
+align-items:center;
+gap:8px
+}
+.secondary{
+background:#e3c77f;
+color:#17372b
+}
+.secondary:disabled{
+opacity:.5;
+cursor:not-allowed
+}
+.reciter-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:10px;
+margin-top:18px
+}
+.reciter{
+padding:12px;
+background:white;
+border:1px solid #e9e1cf;
+border-radius:11px;
+font-size:13px;
+text-align:center
+}
+.reciter span{
+display:block;
+color:#b08c45;
+font-size:20px
+}
+.feature-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:14px
+}
+.feature{
+background:white;
+border:1px solid #e9e1cf;
+border-radius:14px;
+padding:22px
+}
+.feature b{
+font-size:28px;
+color:#b08c45
+}
+.feature h3{color:var(--green)}
+.feature p{
+font-size:13px;
+color:var(--muted)
+}
+footer{
+background:#052d24;
+color:white;
+text-align:center;
+padding:34px 20px
+}
+footer .brand{justify-content:center}
+footer p{color:#e4d6b5}
+footer small{color:#c9d3cb}
+footer a{color:#e7ca85}
+body.dark{
+--cream:#101c18;
+--ink:#e7eee8;
+--card:#172820;
+--muted:#b0bdb4
+}
+body.dark .section h2{color:#e7ca85}
+body.dark .result,
+body.dark .ayah,
+body.dark .feature,
+body.dark .reciter{
+background:#172820;
+border-color:#31483d
+}
+body.dark select,body.dark .searchbar{
+background:#172820;
+color:#e7eee8
+}
+body.dark .arabic,
+body.dark .ayah-text{color:#f1e5c6}
+
+@media(max-width:850px){
+nav{gap:10px;flex-wrap:wrap}
+.hero-art{width:230px}
+.feature-grid{grid-template-columns:repeat(2,1fr)}
+.reciter-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:580px){
+.topbar{flex-wrap:wrap}
+nav{
+order:3;
+width:100%;
+justify-content:space-between
+}
+.hero{min-height:390px}
+.hero-art{display:none}
+.section{padding:45px 18px}
+.section-heading{display:block}
+.section h2{font-size:26px}
+.searchbar{display:grid}
+.player-card{padding:16px;display:block}
+.player-mark{margin-bottom:15px}
+.feature-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+<a class="brand" href="#">
+<span class="brand-icon">۞</span>
+<span>
+المصحف الإلكتروني
+<small>رفيقك في تلاوة القرآن وتدبره</small>
+</span>
+</a>
+
+<nav>
+<a href="#read">المصحف</a>
+<a href="#search">البحث عن آية</a>
+<a href="#listen">الاستماع</a>
+<a href="#about">عن الموقع</a>
+</nav>
+
+<button id="themeBtn" class="ghost">☾</button>
+</header>
+
+<main>
+
+<section class="hero">
+<div class="hero-content">
+<span class="eyebrow">مبادرة قرآنية مجانية لوجه الله</span>
+<h1>اقرأ القرآن الكريم<br><em>وتدبّر آياته</em></h1>
+<p>المصحف، التفسير، البحث عن الآيات، والقراءات والروايات في مكان واحد.</p>
+<a class="primary" href="#read">ابدأ القراءة ←</a>
+</div>
+
+<div class="hero-art">
+<div class="moon">☾</div>
+<div class="book">﷽<br><span>القرآن الكريم</span></div>
+<div class="arch"></div>
+</div>
+</section>
+
+<section class="section" id="search">
+
+<div class="section-heading">
+<div>
+<span class="eyebrow">ابحث وتدبّر</span>
+<h2>البحث عن آية</h2>
+</div>
+<p>اكتب كلمة أو جزءًا من آية للعثور على مواضعها في القرآن الكريم.</p>
+</div>
+
+<form id="searchForm" class="searchbar">
+<input id="searchInput" type="search" placeholder="اكتب كلمة أو جزءًا من الآية" required>
+<button>ابحث عن الآية</button>
+</form>
+
+<div id="searchStatus" class="status"></div>
+<div id="searchResults" class="results"></div>
+</section>
+
+<section class="section" id="read">
+
+<div class="section-heading">
+<div>
+<span class="eyebrow">بين يديك</span>
+<h2>المصحف الشريف</h2>
+</div>
+<p>اختر السورة لعرض آياتها.</p>
+</div>
+
+<div class="reader-tools">
+<label>
+السورة
+<select id="surahSelect">
+<option value="">جارٍ تحميل السور...</option>
+</select>
+</label>
+
+<label>
+الرواية
+<select id="riwayaSelect">
+<option>حفص عن عاصم</option>
+<option>ورش عن نافع</option>
+<option>قالون عن نافع</option>
+</select>
+</label>
+</div>
+
+<div id="readerStatus" class="status"></div>
+<article id="ayahList" class="ayah-list">
+<p>اختر سورة لبدء القراءة.</p>
+</article>
+
+<p class="source-note">
+النسخة الحالية تعرض نص حفص عن عاصم فقط.
+لا يتم تفعيل رواية أخرى إلا بعد ربط نصها المعتمد.
+</p>
+</section>
+
+<section class="section" id="listen">
+
+<div class="section-heading">
+<div>
+<span class="eyebrow">أنصت وتدبّر</span>
+<h2>الاستماع للقرآن الكريم</h2>
+</div>
+<p>اختر قارئًا وسورة للاستماع إلى التلاوة المتاحة.</p>
+</div>
+
+<div class="player-card">
+<div class="player-mark">♫</div>
+
+<div class="player-controls">
+
+<label>
+القارئ
+<select id="reciterSelect">
+<option value="">اختر قارئًا</option>
+<option>محمود خليل الحصري</option>
+<option>محمد صديق المنشاوي</option>
+<option>محمود علي البنا</option>
+<option>مصطفى إسماعيل</option>
+<option>علي جابر</option>
+<option>ناصر القطامي</option>
+<option>حمدي الزامل</option>
+<option>السيد سعيد</option>
+<option>محمد محمود الطبلاوي</option>
+<option>ياسر الدوسري</option>
+</select>
+</label>
+
+<label>
+السورة
+<select id="audioSurah">
+<option value="">اختر السورة</option>
+</select>
+</label>
+
+<div class="audio-placeholder" id="audioStatus">
+اختر قارئًا وسورة.
+</div>
+
+<audio id="audioPlayer" controls preload="none"></audio>
+
+<div class="player-extra">
+<label>
+سرعة التشغيل
+<select id="speed">
+<option value="0.75">0.75×</option>
+<option value="1" selected>1×</option>
+<option value="1.25">1.25×</option>
+<option value="1.5">1.5×</option>
+</select>
+</label>
+
+<button id="repeatBtn" class="secondary">تكرار: متوقف</button>
+</div>
+
+</div>
+</div>
+
+<div class="reciter-grid" id="reciterGrid"></div>
+</section>
+
+<section class="section features" id="about">
+
+<div class="section-heading">
+<div>
+<span class="eyebrow">المصحف الإلكتروني</span>
+<h2>كل ما تحتاجه في مكان واحد</h2>
+</div>
+</div>
+
+<div class="feature-grid">
+<div class="feature">
+<b>۞</b>
+<h3>القراءات العشر</h3>
+<p>الروايات العشرون مع توثيق مصادر النصوص.</p>
+</div>
+
+<div class="feature">
+<b>✧</b>
+<h3>التفسير</h3>
+<p>ربط الآيات بتفاسير موثوقة.</p>
+</div>
+
+<div class="feature">
+<b>⌕</b>
+<h3>البحث القرآني</h3>
+<p>الوصول إلى الآية من خلال كلمة أو جزء منها.</p>
+</div>
+
+<div class="feature">
+<b>♫</b>
+<h3>التلاوات</h3>
+<p>الاستماع إلى القراء المتاحين.</p>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="brand">
+<span class="brand-icon">۞</span>
+<span>المصحف الإلكتروني</span>
+</div>
+<p>اللهم اجعل هذا العمل خالصًا لوجهك الكريم.</p>
+<small>
+مصدر البيانات:
+<a href="https://alquran.cloud/api" target="_blank">AlQuran Cloud API</a>
+</small>
+</footer>
+
+<script>
+const API="https://api.alquran.cloud/v1";
+const $=id=>document.getElementById(id);
+
+let surahs=[];
+
+const reciters=[
+{name:"محمود خليل الحصري",keys:["husary","husari","حصري"]},
+{name:"محمد صديق المنشاوي",keys:["minshawi","منشاوي"]},
+{name:"محمود علي البنا",keys:["banna","bana","البنا"]},
+{name:"مصطفى إسماعيل",keys:["mustafa ismail","mustafaismail"]},
+{name:"علي جابر",keys:["ali jaber","alijaber"]},
+{name:"ناصر القطامي",keys:["qatami","qatamy"]},
+{name:"حمدي الزامل",keys:["hamdi zamel","hamdyzamel"]},
+{name:"السيد سعيد",keys:["sayed said","alsayed said"]},
+{name:"محمد محمود الطبلاوي",keys:["tablawi","tablawy"]},
+{name:"ياسر الدوسري",keys:["yasser dosari","yasseraldosari"]}
+];
+
+let audioEditions=[];
+let audioQueue=[];
+let audioIndex=0;
+
+$("reciterGrid").innerHTML=reciters.map((r,i)=>
+`<div class="reciter"><span>♫</span>${i+1}. ${r.name}</div>`
+).join("");
+
+async function getJSON(url){
+const response=await fetch(url);
+if(!response.ok)throw new Error("تعذر الاتصال بمصدر البيانات");
+const json=await response.json();
+if(json.code!==200)throw new Error(json.status||"لم تصل بيانات");
+return json.data;
+}
+
+async function loadSurahs(){
+try{
+surahs=await getJSON(`${API}/surah`);
+
+const options=surahs.map(s=>
+`<option value="${s.number}">${s.number}. ${s.name}</option>`
+).join("");
+
+$("surahSelect").innerHTML='<option value="">اختر السورة</option>'+options;
+$("audioSurah").innerHTML='<option value="">اختر السورة</option>'+options;
+
+}catch(error){
+$("readerStatus").textContent="تعذر تحميل السور. تحقق من الإنترنت.";
+}
+}
+
+async function loadSurah(number){
+if(!number)return;
+
+$("readerStatus").textContent="جارٍ تحميل الآيات...";
+$("ayahList").innerHTML="";
+
+try{
+const data=await getJSON(
+`${API}/surah/${number}/quran-uthmani`
+);
+
+$("readerStatus").textContent=
+`${data.name} — ${data.numberOfAyahs} آية`;
+
+data.ayahs.forEach(ayah=>{
+const element=document.createElement("div");
+element.className="ayah";
+
+const numberBox=document.createElement("span");
+numberBox.className="ayah-num";
+numberBox.textContent=ayah.numberInSurah;
+
+const textBox=document.createElement("div");
+textBox.className="ayah-text";
+textBox.textContent=ayah.text;
+
+element.append(numberBox,textBox);
+$("ayahList").appendChild(element);
+});
+
+}catch(error){
+$("readerStatus").textContent="حدث خطأ أثناء تحميل السورة.";
+}
+}
+
+$("surahSelect").addEventListener("change",event=>{
+loadSurah(event.target.value);
+});
+
+// البحث يعرض نص الآية وليس التفسير
+$("searchForm").addEventListener("submit",async event=>{
+event.preventDefault();
+
+const query=$("searchInput").value.trim();
+if(!query)return;
+
+$("searchStatus").textContent="جارٍ البحث...";
+$("searchResults").innerHTML="";
+
+try{
+const data=await getJSON(
+`${API}/search/${encodeURIComponent(query)}/all/quran-uthmani`
+);
+
+$("searchStatus").textContent=`عدد النتائج: ${data.count}`;
+
+if(!data.matches.length){
+$("searchStatus").textContent="لم يتم العثور على آيات مطابقة.";
+return;
+}
+
+data.matches.slice(0,50).forEach(match=>{
+const result=document.createElement("div");
+result.className="result";
+
+const verse=document.createElement("p");
+verse.className="arabic";
+verse.textContent=match.text;
+
+const info=document.createElement("small");
+info.textContent=
+`${match.surah.name} — الآية ${match.numberInSurah}`;
+
+result.append(verse,info);
+$("searchResults").appendChild(result);
+});
+
+}catch(error){
+$("searchStatus").textContent="تعذر البحث. حاول مرة أخرى.";
+}
+});
+
+// الوضع الليلي
+$("themeBtn").addEventListener("click",()=>{
+document.body.classList.toggle("dark");
+});
+
+// سرعة الصوت
+$("speed").addEventListener("change",event=>{
+$("audioPlayer").playbackRate=Number(event.target.value);
+});
+
+// تكرار الصوت
+$("repeatBtn").addEventListener("click",()=>{
+const player=$("audioPlayer");
+player.loop=!player.loop;
+$("repeatBtn").textContent=
+player.loop?"تكرار: يعمل":"تكرار: متوقف";
+});
+
+// البحث عن التسجيلات الصوتية المتاحة
+function normalize(text){
+return (text||"")
+.toLowerCase()
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g,"")
+.replace(/[^a-z0-9\u0600-\u06ff]/g,"");
+}
+
+async function loadAudioEditions(){
+try{
+audioEditions=await getJSON(
+`${API}/edition?format=audio&language=ar`
+);
+}catch(error){
+audioEditions=[];
+}
+}
+
+function findEdition(reciter){
+const selected=reciters.find(r=>r.name===reciter);
+if(!selected)return null;
+
+return audioEditions.find(edition=>{
+const searchText=normalize(
+[edition.name,edition.englishName,edition.identifier].join(" ")
+);
+
+return selected.keys.some(key=>
+searchText.includes(normalize(key))
+);
+})||null;
+}
+
+async function prepareAudio(){
+
+const reciter=$("reciterSelect").value;
+const surah=$("audioSurah").value;
+const player=$("audioPlayer");
+
+player.pause();
+player.removeAttribute("src");
+player.load();
+
+audioQueue=[];
+audioIndex=0;
+
+if(!reciter||!surah){
+$("audioStatus").textContent="اختر القارئ والسورة أولًا.";
+return;
+}
+
+if(!audioEditions.length){
+await loadAudioEditions();
+}
+
+const edition=findEdition(reciter);
+
+if(!edition){
+$("audioStatus").textContent=
+"لا يوجد تسجيل مطابق وموثق لهذا القارئ في مصدر الصوت الحالي.";
+return;
+}
+
+$("audioStatus").textContent="جارٍ تجهيز التلاوة...";
+
+try{
+
+const data=await getJSON(
+`${API}/surah/${surah}/${encodeURIComponent(edition.identifier)}`
+);
+
+audioQueue=(data.ayahs||[])
+.map(ayah=>ayah.audio)
+.filter(Boolean);
+
+if(!audioQueue.length){
+throw new Error("لا توجد تسجيلات متاحة لهذه السورة.");
+}
+
+audioIndex=0;
+player.src=audioQueue[0];
+player.load();
+
+$("audioStatus").textContent=
+`جاهز للتشغيل: ${reciter} — ${data.name}. اضغط زر التشغيل.`;
+
+}catch(error){
+$("audioStatus").textContent=
+"تعذر تجهيز التسجيل الصوتي.";
+}
+}
+
+// تشغيل الآية التالية بعد انتهاء السابقة
+$("audioPlayer").addEventListener("ended",()=>{
+if($("audioPlayer").loop||!audioQueue.length)return;
+
+audioIndex++;
+
+if(audioIndex<audioQueue.length){
+$("audioPlayer").src=audioQueue[audioIndex];
+$("audioPlayer").play().catch(()=>{});
+}else{
+$("audioStatus").textContent="انتهت تلاوة السورة.";
+}
+});
+
+$("reciterSelect").addEventListener("change",prepareAudio);
+$("audioSurah").addEventListener("change",prepareAudio);
+
+loadSurahs().then(loadAudioEditions);
+
+</script>
+</body>
+</html>
